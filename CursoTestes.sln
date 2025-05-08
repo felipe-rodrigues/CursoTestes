@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C88F630F-FD08-4B89-A11A-84C98A58F306}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{0E608207-726F-40E2-8585-4A5048D58C27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhaLojaExpress.Dominio", "MinhaLojaExpress.Dominio\MinhaLojaExpress.Dominio.csproj", "{E7195BB7-1CA0-40CF-9B94-A52092FF799A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhaLojaExpress.Infra", "MinhaLojaExpress.Infra\MinhaLojaExpress.Infra.csproj", "{0664977C-53FF-4365-9378-D825FD62AD77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinhaLojaExpress.Aplicacao", "MinhaLojaExpress.Aplicacao\MinhaLojaExpress.Aplicacao.csproj", "{0A3776DF-0546-457C-AE74-F8A862039FC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhaLojaExpress.Infra.Shared", "MinhaLojaExpress.Infra.Shared\MinhaLojaExpress.Infra.Shared.csproj", "{07D1665A-9429-4CD0-ACD0-FBF1FD497078}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinhaLojaExpress.Testes.Unit", "MinhaLojaExpress.Testes.Unit\MinhaLojaExpress.Testes.Unit.csproj", "{836800AE-BB1B-433F-81D6-3465BAC3A78C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7195BB7-1CA0-40CF-9B94-A52092FF799A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7195BB7-1CA0-40CF-9B94-A52092FF799A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7195BB7-1CA0-40CF-9B94-A52092FF799A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7195BB7-1CA0-40CF-9B94-A52092FF799A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0664977C-53FF-4365-9378-D825FD62AD77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0664977C-53FF-4365-9378-D825FD62AD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0664977C-53FF-4365-9378-D825FD62AD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0664977C-53FF-4365-9378-D825FD62AD77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3776DF-0546-457C-AE74-F8A862039FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3776DF-0546-457C-AE74-F8A862039FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3776DF-0546-457C-AE74-F8A862039FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3776DF-0546-457C-AE74-F8A862039FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D1665A-9429-4CD0-ACD0-FBF1FD497078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D1665A-9429-4CD0-ACD0-FBF1FD497078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D1665A-9429-4CD0-ACD0-FBF1FD497078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D1665A-9429-4CD0-ACD0-FBF1FD497078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836800AE-BB1B-433F-81D6-3465BAC3A78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836800AE-BB1B-433F-81D6-3465BAC3A78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836800AE-BB1B-433F-81D6-3465BAC3A78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836800AE-BB1B-433F-81D6-3465BAC3A78C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7195BB7-1CA0-40CF-9B94-A52092FF799A} = {C88F630F-FD08-4B89-A11A-84C98A58F306}
+		{0664977C-53FF-4365-9378-D825FD62AD77} = {C88F630F-FD08-4B89-A11A-84C98A58F306}
+		{0A3776DF-0546-457C-AE74-F8A862039FC5} = {C88F630F-FD08-4B89-A11A-84C98A58F306}
+		{07D1665A-9429-4CD0-ACD0-FBF1FD497078} = {C88F630F-FD08-4B89-A11A-84C98A58F306}
+		{836800AE-BB1B-433F-81D6-3465BAC3A78C} = {0E608207-726F-40E2-8585-4A5048D58C27}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5DEDC2B-8CC0-459D-A3C6-823109179B00}
+	EndGlobalSection
+EndGlobal
