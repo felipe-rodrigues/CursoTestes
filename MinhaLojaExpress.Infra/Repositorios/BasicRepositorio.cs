@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MinhaLojaExpress.Dominio.Interfaces;
 using MinhaLojaExpress.Infra.Contexto;
 
@@ -22,21 +21,21 @@ namespace MinhaLojaExpress.Infra.Repositorios
             return obj;
         }
 
-        public async Task<T?> GetSingleAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T?> GetSingleAsync(Func<T, bool> predicate)
         {
-            var obj = await _set.FirstAsync(predicate);
+            var obj = await _set.FindAsync(predicate);
             return obj;
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _set.ToListAsync();
         }
 
-        public async Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
         {
-            var objs = await _set.Where(predicate).ToListAsync();
-            return objs;
+            var objs = _set.Where(predicate).ToList();
+            return await Task.FromResult(objs);
         }
 
         public async Task AddAsync(T request)

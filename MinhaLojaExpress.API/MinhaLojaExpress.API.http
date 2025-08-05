@@ -1,0 +1,6 @@
+@MinhaLojaExpress.API_HostAddress = http://localhost:5226
+
+GET {{MinhaLojaExpress.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

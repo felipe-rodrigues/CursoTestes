@@ -7,8 +7,15 @@ namespace MinhaLojaExpress.Infra.Contexto
     {
         public MinhaLojaExpressContext CreateDbContext(string[] args)
         {
+            var connectionString = Environment.GetEnvironmentVariable("PostgresConnectionString");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException("A variável de ambiente PostgresConnectionString nao foi encontrada");
+            }
+
             var optionsBuilder = new DbContextOptionsBuilder<MinhaLojaExpressContext>();
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=MinhaLojaExpressDB;Username=postgres;Password=senha123");
+            optionsBuilder.UseNpgsql(connectionString);
 
             return new MinhaLojaExpressContext(optionsBuilder.Options);
         }

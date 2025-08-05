@@ -1,13 +1,11 @@
-﻿using System.Linq.Expressions;
-
-namespace MinhaLojaExpress.Dominio.Interfaces
+﻿namespace MinhaLojaExpress.Dominio.Interfaces
 {
     public interface IRepositorio<T> where T : class
     {
         Task<T?> GetByIdAsync(Guid id);
-        Task<T?> GetSingleAsync(Expression<Func<T, bool>> predicate);
-        Task<List<T>> GetAllAsync();
-        Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<T?> GetSingleAsync(Func<T, bool> predicate);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate);
         Task AddAsync(T request);
         Task<bool> DeleteAsync(Guid id);
         Task<bool> UpdateAsync(T request);
