@@ -2,7 +2,7 @@
 {
     public class Calendario
     {
-        private int Ano { get; set; }
+        public int Ano { get; }
         private IEnumerable<Dia> Dias { get; set; }
         
 

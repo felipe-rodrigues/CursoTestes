@@ -1,10 +1,11 @@
-﻿using M1.Test.Generators;
+﻿using M1.Servicos;
+using M1.Test.Generators;
 
 namespace M1.Test
 {
     public class SecretarioServicoTeste
     {
-
+        #region Boas Vindas
         [Theory]
         [InlineData("pt_BR", "Seja Bem Vindo")]
         [InlineData("en_US", "Welcome")]
@@ -65,5 +66,8 @@ namespace M1.Test
 
             Assert.Equal(mensagemEsperada, resultado.Message);
         }
+
+        #endregion
+
     }
 }

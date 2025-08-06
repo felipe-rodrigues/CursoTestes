@@ -13,7 +13,25 @@ namespace M1.Servicos
         
         public void Agendar(DateTime data, uint hora, string nomeEvento)
         {
+            if (data.Year > _calendario.Ano)
+                throw new ArgumentException($"Calendario do ano {data.Year} não disponível");
+                    
             _calendario.AdicionarEvento(data, new Evento(nomeEvento, hora));
+        }
+
+        public void Cancelar(DateTime data, uint hora)
+        {
+            var dia = _calendario.ListarDias.FirstOrDefault(d => d.Data.Date == data.Date);
+            if (dia != null)
+            {
+                var evento = dia.Eventos.FirstOrDefault(e => e.Hora == hora);
+                if(evento != null)
+                    dia.Eventos.ToList().Remove(evento);
+                else
+                {
+                    throw new Exception($"Evento não encontrado para a data {data.ToShortDateString()} e hora {hora}");
+                }
+            }
         }
 
         public bool EstaDisponivel(DateTime data, uint hora)
