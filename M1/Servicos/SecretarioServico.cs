@@ -94,13 +94,13 @@ namespace M1.Servicos
         public List<string> ObterAgendamentosDaSemana(uint mes, uint semana)
         {
             var eventos = _calendarioServico.ObterAgendamentosDaSemana(mes, semana);
-            return eventos.Select(e => $"{e.Item2.Titulo} - {e.Item1:dd/MM/YYYY} {(_idioma == "pt_BT" ? "ás" : "at")} {e.Item2.Hora} ").ToList();
+            return eventos.Select(e => $"{e.Item2.Titulo} - {e.Item1:dd/MM/yyyy} {(_idioma == "pt_BR" ? "ás" : "at")} {e.Item2.Hora}").ToList();
         }
 
         public List<string> ObterAgendamentosDoDia(DateTime data)
         {
             var eventos = _calendarioServico.ObterAgendamentosDoDia(data);
-            return eventos.Select(e => $"{e.Titulo} - {(_idioma == "pt_BT" ? "ás" : "at")} {e.Hora} ").ToList();
+            return eventos.Select(e => $"{e.Titulo} - {(_idioma == "pt_BR" ? "ás" : "at")} {e.Hora} ").ToList();
         }
 
         public List<uint> ObterHorariosDisponiveis(DateTime data)
@@ -110,8 +110,8 @@ namespace M1.Servicos
             if(horarios.Count == 0)
                 throw new Exception(_idioma switch
                     {
-                        "pt_BR" => $"Não há horários disponíveis para a data {data}",
-                        "en_US" => $"There are no available times for the date {data}",
+                        "pt_BR" => $"Não há horários disponíveis para a data {data:dd/MM/yyyy}",
+                        "en_US" => $"There are no available times for the date {data:dd/MM/yyyy}",
                         _ => throw new TraducaoNaoDisponivelException(_idioma)
                     }
                 );

@@ -1,14 +1,22 @@
 ﻿using M1.Models;
+using M1.Shared;
 
 namespace M1.Servicos
 {
     public class CalendarioServico : ICalendarioServico
     {
         private Calendario _calendario;
+        private IDateTimeProvider _dateTimeProvider;
 
         public CalendarioServico()
         {
             _calendario = new Calendario(DateTime.Now.Year);
+        }
+
+        public CalendarioServico(IDateTimeProvider dataProvedor)
+        {
+            _dateTimeProvider = dataProvedor;
+            _calendario = new Calendario(dataProvedor.Agora.Year);
         }
         
         public void Agendar(DateTime data, uint hora, string nomeEvento)
@@ -25,8 +33,8 @@ namespace M1.Servicos
             if (dia != null)
             {
                 var evento = dia.Eventos.FirstOrDefault(e => e.Hora == hora);
-                if(evento != null)
-                    dia.Eventos.ToList().Remove(evento);
+                if (evento != null)
+                    dia.Eventos.Remove(evento);
                 else
                 {
                     throw new Exception($"Evento não encontrado para a data {data.ToShortDateString()} e hora {hora}");
