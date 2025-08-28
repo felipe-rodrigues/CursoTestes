@@ -6,7 +6,6 @@ namespace M1.Servicos
     public class CalendarioServico : ICalendarioServico
     {
         private Calendario _calendario;
-        private IDateTimeProvider _dateTimeProvider;
 
         public CalendarioServico()
         {
@@ -15,7 +14,6 @@ namespace M1.Servicos
 
         public CalendarioServico(IDateTimeProvider dataProvedor)
         {
-            _dateTimeProvider = dataProvedor;
             _calendario = new Calendario(dataProvedor.Agora.Year);
         }
         

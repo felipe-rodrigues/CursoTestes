@@ -1,6 +1,4 @@
-﻿using M1.Models;
-
-namespace M1.Servicos
+﻿namespace M1.Servicos
 {
     public class SecretarioServico
     {

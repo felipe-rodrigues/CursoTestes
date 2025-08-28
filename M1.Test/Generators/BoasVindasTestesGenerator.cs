@@ -4,14 +4,15 @@ namespace M1.Test.Generators
 {
     internal class BoasVindasTestesGenerator : IEnumerable<object[]>
     {
-        private static readonly List<object[]> _testCases = new List<object[]>
+        private static readonly List<object[]> TestCases = new List<object[]>
         {
             new object[] { "pt_BR", "Seja Bem Vindo" },
             new object[] { "en_US", "Welcome" }
         };
+        
         public IEnumerator<object[]> GetEnumerator()
         {
-            return _testCases.GetEnumerator();
+            return TestCases.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -21,7 +22,7 @@ namespace M1.Test.Generators
 
         public static IEnumerable<object[]> GetCasosDeTesteIdiomaEncontrado()
         {
-            return _testCases;
+            return TestCases;
         }
 
         public static IEnumerable<object[]> GetCasosDeIdiomaNaoEncontrado()

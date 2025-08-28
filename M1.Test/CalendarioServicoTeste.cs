@@ -1,5 +1,4 @@
-﻿using M1.Models;
-using M1.Servicos;
+﻿using M1.Servicos;
 using M1.Shared;
 using Moq;
 
@@ -14,9 +13,9 @@ namespace M1.Test
             dataProvedorMock.Setup(dp => dp.Agora)
                 .Returns(new DateTime(2023, 1, 1));
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
-            var date = new DateTime(2023,01,1);
+            var date = new DateTime(2023, 01, 1);
             calendarioServico.Agendar(date, 10, "Evento Teste");
-            
+
             Assert.Contains(calendarioServico.ObterAgendamentosDoDia(date),
                 e => e is { Titulo: "Evento Teste", Hora: 10 });
         }
@@ -28,11 +27,11 @@ namespace M1.Test
             dataProvedorMock.Setup(dp => dp.Agora)
                 .Returns(new DateTime(2023, 1, 1));
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
-            var date = new DateTime(2024,01,1);
-            
+            var date = new DateTime(2024, 01, 1);
+
             Assert.Throws<ArgumentException>(() => calendarioServico.Agendar(date, 10, "Evento Teste"));
         }
-        
+
         [Fact]
         public void CancelarEvento_QuandoEventoExiste_CancelaComSucesso()
         {
@@ -40,11 +39,11 @@ namespace M1.Test
             dataProvedorMock.Setup(dp => dp.Agora)
                 .Returns(new DateTime(2023, 1, 1));
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
-            var date = new DateTime(2023,01,1);
+            var date = new DateTime(2023, 01, 1);
             calendarioServico.Agendar(date, 10, "Evento Teste");
-            
+
             calendarioServico.Cancelar(date, 10);
-            
+
             Assert.Empty(calendarioServico.ObterAgendamentosDoDia(date));
         }
 
@@ -68,7 +67,7 @@ namespace M1.Test
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
             var date = new DateTime(2023, 01, 1);
             calendarioServico.Agendar(date, 10, "Evento Teste");
-            
+
             Assert.False(calendarioServico.EstaDisponivel(date, 10));
         }
 
@@ -78,14 +77,14 @@ namespace M1.Test
             var dataProvedorMock = new Mock<IDateTimeProvider>();
             dataProvedorMock.Setup(dp => dp.Agora)
                 .Returns(new DateTime(2023, 1, 1));
-            
+
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
             var date = new DateTime(2023, 01, 1);
-            
+
             calendarioServico.Agendar(date, 10, "Evento Teste");
-            
+
             var agendamentos = calendarioServico.ObterAgendamentosDaSemana(1, 1);
-            
+
             Assert.Single(agendamentos);
             Assert.Equal("Evento Teste", agendamentos[0].Item2.Titulo);
         }
@@ -113,11 +112,11 @@ namespace M1.Test
             dataProvedorMock.Setup(dp => dp.Agora)
                 .Returns(new DateTime(2023, 1, 1));
             var calendarioServico = new CalendarioServico(dataProvedorMock.Object);
-            var date = new DateTime(2023,01,1);
+            var date = new DateTime(2023, 01, 1);
             calendarioServico.Agendar(date, 10, "Evento Teste");
-            
+
             var eventos = calendarioServico.ObterAgendamentosDoDia(date);
-            
+
             Assert.Single(eventos);
             Assert.Equal("Evento Teste", eventos[0].Titulo);
             Assert.Equal((uint)10, eventos[0].Hora);
