@@ -8,7 +8,7 @@ namespace MinhaLojaExpress.Infra.Shared.Fakers
         public PedidoFakeGenerator() : base("pt_BR")
         {
             RuleFor(p => p.Id, _ => Guid.NewGuid());
-            RuleFor(p => p.ValorTotal, f => f.Finance.Amount(50, 500)); // Valor total entre 50 e 500
+            RuleFor(p => p.ValorTotal, (f, src) => src.Items.Sum(i => i.Valor)); // Valor total entre 50 e 500
             RuleFor(p => p.DataPedido, f => f.Date.Recent(30).ToUniversalTime());
         }
 
@@ -37,7 +37,8 @@ namespace MinhaLojaExpress.Infra.Shared.Fakers
             {
                 Quantidade = FakerHub.Random.Int(1, 10),
                 ItemId = i.Id,
-                PedidoId = pedido.Id
+                PedidoId = pedido.Id,
+                Valor = FakerHub.Finance.Amount(10, 100),
             }).ToList();
 
             return pedido;

@@ -20,17 +20,6 @@ namespace MinhaLojaExpress.Infra.Contexto.Configurations
                     j => j.HasOne<Desconto>().WithMany().HasForeignKey("DescontoId"),
                     j => j.HasOne<Item>().WithMany().HasForeignKey("ItemId")
                 );
-
-            builder.HasData(new List<Item>()
-            {
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Nome = "Item 1",
-                    Quantidade = 10,
-                    Preco = 10M
-                }
-            });
         }
     }
 }

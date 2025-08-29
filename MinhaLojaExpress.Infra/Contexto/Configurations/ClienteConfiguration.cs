@@ -16,17 +16,6 @@ namespace MinhaLojaExpress.Infra.Contexto.Configurations
                 .WithOne(p => p.Cliente)
                 .HasForeignKey(p => p.ClienteId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasData(new List<Cliente>()
-            {
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Email = "meuemail@gmail.com",
-                    Nome = "Cliente1",
-                    Telefone = "31 91111-1111"
-                }
-            });
         }
     }
 }

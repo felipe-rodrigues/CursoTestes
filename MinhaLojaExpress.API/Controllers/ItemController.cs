@@ -7,27 +7,20 @@ namespace MinhaLojaExpress.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : ControllerBase
+    public class ItemController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public ItemController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var query = new ListarItemsQuery();
-            var result = await _mediator.Send(query);
+            var result = await mediator.Send(query);
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-           var item = await _mediator.Send(new ObterItemQuery(id));
+           var item = await mediator.Send(new ObterItemQuery(id));
            
            if (item is null)
                return NotFound();
@@ -36,9 +29,9 @@ namespace MinhaLojaExpress.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateItemCommand itemCommandModel)
+        public async Task<IActionResult> Post([FromBody] CriarItemCommand itemCommandModel)
         {
-            var result = await _mediator.Send(itemCommandModel);
+            var result = await mediator.Send(itemCommandModel);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
     }

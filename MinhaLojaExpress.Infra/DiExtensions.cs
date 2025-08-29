@@ -19,6 +19,8 @@ namespace MinhaLojaExpress.Infra
             services.AddDbContext<MinhaLojaExpressContext>(options =>
                 options.UseNpgsql(connectionString));
 
+            services.AddScoped<InicializadorBancoDeDados>();
+
             return services;
         }
 

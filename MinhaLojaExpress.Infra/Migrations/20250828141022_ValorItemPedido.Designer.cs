@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MinhaLojaExpress.Infra.Contexto;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MinhaLojaExpress.Infra.Migrations
 {
     [DbContext(typeof(MinhaLojaExpressContext))]
-    partial class MinhaLojaExpressContextModelSnapshot : ModelSnapshot
+    [Migration("20250828141022_ValorItemPedido")]
+    partial class ValorItemPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace MinhaLojaExpress.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("96bd4915-991d-46cb-8df9-401931d5b892"),
+                            Id = new Guid("652c6058-c225-4352-ba34-01f9df0af9b0"),
                             Email = "meuemail@gmail.com",
                             Nome = "Cliente1",
                             Telefone = "31 91111-1111"
@@ -118,7 +121,7 @@ namespace MinhaLojaExpress.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("73c9129e-169f-4d24-8d90-c13e006381b4"),
+                            Id = new Guid("9caf62cc-6c5e-45d0-ba73-1a6f68a6e2d4"),
                             Nome = "Item 1",
                             Preco = 10m,
                             Quantidade = 10L

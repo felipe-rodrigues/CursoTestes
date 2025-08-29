@@ -4,18 +4,12 @@ using MinhaLojaExpress.Infra.Contexto;
 
 namespace MinhaLojaExpress.Infra.Repositorios
 {
-    public abstract class BasicRepositorio<T> : IRepositorio<T> where T : class
+    public abstract class BasicRepositorio<T>(MinhaLojaExpressContext context) : IRepositorio<T>
+        where T : class
     {
-        private readonly DbSet<T> _set;
-        private readonly MinhaLojaExpressContext _context;
-        
-        protected BasicRepositorio(MinhaLojaExpressContext context)
-        {
-            _context = context;
-            _set = context.Set<T>();
-        }
+        private readonly DbSet<T> _set = context.Set<T>();
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(Guid id)
         {
             var obj = await _set.FindAsync(id);
             return obj;
@@ -27,56 +21,56 @@ namespace MinhaLojaExpress.Infra.Repositorios
             return obj;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _set.ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
+        public virtual async Task<IEnumerable<T>> GetAsync(Func<T, bool> predicate)
         {
             var objs = _set.Where(predicate).ToList();
             return await Task.FromResult(objs);
         }
 
-        public async Task AddAsync(T request)
+        public virtual async Task AddAsync(T request)
         {
             await _set.AddAsync(request);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public virtual async Task<bool> DeleteAsync(Guid id)
         {
             var obj = await _set.FindAsync(id);
             _set.Remove(obj!);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> UpdateAsync(T request)
+        public virtual async Task<bool> UpdateAsync(T request)
         {
             _set.Update(request);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> UpdateRangeAsync(ICollection<T> request)
+        public virtual async Task<bool> UpdateRangeAsync(ICollection<T> request)
         {
             _set.UpdateRange(request);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DeleteRangeAsync(ICollection<T> request)
+        public virtual async Task<bool> DeleteRangeAsync(ICollection<T> request)
         {
             _set.RemoveRange(request);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> AddRangeAsync(ICollection<T> request)
+        public virtual async Task<bool> AddRangeAsync(ICollection<T> request)
         {
             await _set.AddRangeAsync(request);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return true;
         }
     }
