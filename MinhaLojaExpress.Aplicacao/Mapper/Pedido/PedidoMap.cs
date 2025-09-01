@@ -4,9 +4,9 @@ using MinhaLojaExpress.Dominio.Entidades;
 
 namespace MinhaLojaExpress.Aplicacao.Mapper.Pedido
 {
-    public class PedidoMap : Profile
+    public class PedidoProfile : Profile
     {
-        public PedidoMap()
+        public PedidoProfile()
         {
             CreateMap<ItemPedido, ItemPedidoModel>()
                 .ForMember(i => i.Nome, opt => opt.MapFrom(src => src.Item.Nome));

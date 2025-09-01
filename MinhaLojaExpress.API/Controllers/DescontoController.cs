@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MinhaLojaExpress.Aplicacao.features.Commands.Desconto;
 using MinhaLojaExpress.Aplicacao.features.Queries.Desconto;
-using MinhaLojaExpress.Aplicacao.features.Queries.Item;
-using MinhaLojaExpress.Aplicacao.Models.Desconto;
 
 namespace MinhaLojaExpress.API.Controllers
 {

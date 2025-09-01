@@ -7,14 +7,21 @@ using MinhaLojaExpress.Dominio.Interfaces;
 
 namespace MinhaLojaExpress.Aplicacao.features.Commands.Pedido
 {
-    public record CriarPedidoCommand(string ClienteId, IEnumerable<string> ItemIds, IEnumerable<string>? DescontoCodigos) : IRequest<PedidoModel>;
+    public record CriarPedidoCommand(string ClienteId, Dictionary<string, int> Items, IEnumerable<string>? DescontoCodigos) : IRequest<PedidoModel>;
     
     public class CriarPedidoCommandValidator : AbstractValidator<CriarPedidoCommand>
     {
         public CriarPedidoCommandValidator(IDescontoRepositorio descontoRepositorio)
         {
             RuleFor(x => x.ClienteId).NotEmpty().WithMessage("O ID do cliente é obrigatório.");
-            RuleFor(x => x.ItemIds).NotEmpty().WithMessage("É necessário pelo menos um item para criar um pedido.");
+
+            RuleForEach(x => x.Items)
+                .Must(i => !string.IsNullOrWhiteSpace(i.Key))
+                .WithMessage("O ID do item é obrigatório.");
+
+            RuleForEach(x => x.Items)
+                .Must(i => i.Value > 0)
+                .WithMessage("A quantidade do item deve ser maior que zero.");
 
             RuleFor(x => x.DescontoCodigos)
                 .CustomAsync(async (codigos, context, cancellation) =>
@@ -28,11 +35,11 @@ namespace MinhaLojaExpress.Aplicacao.features.Commands.Pedido
                         return enumerable.Contains(d.Codigo) && d.DataValidade > DateTime.Now;
                     });
 
-                    var descontosValidosIds = descontosValidos.Select(d => d.Id.ToString()).ToHashSet();
+                    var descontoValidos = descontosValidos.Select(d => d.Codigo.ToString()).ToHashSet();
 
                     foreach (var id in codigos)
                     {
-                        if (!descontosValidosIds.Contains(id))
+                        if (!descontoValidos.Contains(id))
                         {
                             context.AddFailure($"Desconto {id} inválido ou expirado.");
                         }
@@ -50,20 +57,39 @@ namespace MinhaLojaExpress.Aplicacao.features.Commands.Pedido
         public async Task<PedidoModel> Handle(CriarPedidoCommand request, CancellationToken cancellationToken)
         {
             var items = await itemRepositorio.GetAsync(i =>
-                request.ItemIds.ToList().Contains(i.Id.ToString()));
+                request.Items.Keys.ToList().Contains(i.Id.ToString()));
             
+            var descontos = request.DescontoCodigos != null
+                ? await descontoRepositorio.GetAsync(d =>
+                    request.DescontoCodigos.Contains(d.Codigo) && d.DataValidade > DateTime.Now)
+                : [];
+
+            var pedidoItems = items.Select(item =>
+            {
+                var quantidade = request.Items[item.Id.ToString()];
+                var desconto = descontos
+                    .Where(d => d.Items == null || d.Items.Any(i => i.Id == item.Id))
+                    .OrderByDescending(d => d.Percentual)
+                    .FirstOrDefault();
+
+                var valorUnitario = desconto != null
+                    ? item.Preco * (1 - desconto.Percentual / 100m)
+                    : item.Preco;
+
+                return new ItemPedido
+                {
+                    ItemId = item.Id,
+                    Quantidade = quantidade,
+                    Valor = valorUnitario
+                };
+            }).ToList();
+
             var pedido = new Dominio.Entidades.Pedido
             {
                 ClienteId = Guid.Parse(request.ClienteId),
-                Items = items.Select(item => new ItemPedido
-                    {
-                        ItemId = item.Id,
-                        Quantidade = 1, // Adjust as needed
-                        Valor = item.Preco
-                    })
-                    .ToList(),
+                Items = pedidoItems,
                 DataPedido = DateTime.UtcNow,
-                ValorTotal = items.Sum(item => item.Preco)
+                ValorTotal = pedidoItems.Sum(i => i.Valor * i.Quantidade)
             };
 
             await pedidoRepositorio.AddAsync(pedido);

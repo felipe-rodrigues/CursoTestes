@@ -56,7 +56,7 @@ namespace MinhaLojaExpress.Aplicacao.features.Commands.Desconto
                 {
                     Codigo = request.Codigo,
                     Percentual = request.Percentual,
-                    DataValidade = request.DataValidade,
+                    DataValidade = request.DataValidade.ToUniversalTime(),
                     Items = items
                 };
 

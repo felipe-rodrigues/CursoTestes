@@ -24,8 +24,6 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-    var initialiser = services.GetRequiredService<InicializadorBancoDeDados>();
-    await initialiser.InicializarAsync();
     
     app.UseSwagger();
     app.UseSwaggerUI();
