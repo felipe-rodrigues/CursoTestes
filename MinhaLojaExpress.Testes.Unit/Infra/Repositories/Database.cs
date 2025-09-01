@@ -3,7 +3,7 @@ using MinhaLojaExpress.Infra.Contexto;
 
 namespace MinhaLojaExpress.Testes.Unit.Infra.Repositories
 {
-    public class Database : IAsyncLifetime
+    public class Database 
     {
         public MinhaLojaExpressContext Context { get; set; }
         public string DataBaseName { get; }
@@ -15,16 +15,6 @@ namespace MinhaLojaExpress.Testes.Unit.Infra.Repositories
                 .UseInMemoryDatabase(DataBaseName)
                 .Options;
             Context = new MinhaLojaExpressContext(options);
-        }
-        
-        public async Task InitializeAsync()
-        {
-            await Context.Database.EnsureCreatedAsync();
-        }
-
-        public async Task DisposeAsync()
-        {
-            await Context.DisposeAsync();
         }
     }
 }
