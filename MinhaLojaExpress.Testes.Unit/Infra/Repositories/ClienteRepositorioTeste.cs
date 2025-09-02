@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace MinhaLojaExpress.Testes.Unit.Infra.Repositories
 {
-    public class ClienteRepositorioTeste(ITestOutputHelper output, Database db) : IClassFixture<Database>, IAsyncLifetime
+    public class ClienteRepositorioTeste(ITestOutputHelper output, Database db) : IClassFixture<Database>
     {
         [Fact]
         public async Task GetById_QuandoItemExistente_Retorna()
